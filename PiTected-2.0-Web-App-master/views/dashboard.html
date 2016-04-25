@@ -1,0 +1,57 @@
+<navbar-directive></navbar-directive>
+	
+	    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul  class="nav nav-sidebar">
+            <li><h2 class="dark-text">System</h2></li>
+            <li ng-repeat="sensor in sensors" ng-if="$index ===0" ><i ng-class="{'fa fa-unlock system-ok' : {{sensor.status}} === 0, 'fa fa-lock system-armed' : {{sensor.status}} === 1}" ></i></li>
+            <li aria-hidden="true"></li>
+            <br/>
+             <br/>
+              <br/>
+            <li><img ng-src="" class="sidebar-pic"></li>
+          </ul>
+        </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Sensors</h1>
+
+          <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3 placeholder" ng-repeat="sensor in sensors" ng-if="$index != 0">
+              <div  width="200" height="200" class="img-responsive">
+                <i ng-class="{'fa fa-check-circle-o sensor-ok' : {{sensor.status}}  === 0, 'fa fa-exclamation-triangle sensor-warning' : {{sensor.status}} === 1}" aria-hidden="true"></i>
+                </div>
+              <h4>{{sensor.name}}</h4>
+              <span class="text-muted"><i ng-class="{'fa fa-battery-full' :{{sensor.batPcnt}} >= 80, 'fa fa-battery-three-quarters' : {{sensor.batPcnt}} < 80 && {{sensor.batPcnt}} >= 60, 'fa fa-battery-half' : {{sensor.batPcnt}} < 60 && {{sensor.batPcnt}} >= 30, 'fa fa-battery-quarter sensor-danger' : {{sensor.batPcnt}}  < 30}" aria-hidden="true"></i></span>
+            </div>
+           
+          </div>
+
+          <h2 class="sub-header">System Logs</h2>
+          <select style="color:black" ng-options="value as key for (key, value) in logTypes" ng-model="selectedLogType" ng-change="changeNewsFeedType()"></select>
+          <div class="table-responsive" id='top'>
+            <table  class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in newsfeed" ng-class-odd="'odd-item'">
+                  <td>{{item.name}}</td>
+                  <td>{{item.status}}</td>
+                  <td>{{item.timestamp}}</td>
+                </tr>
+               
+              </tbody>
+            </table>
+            <a style="cursor:pointer"ng-href="" ng-click="scrollToTop()">Back to top</a>
+          </div>
+        </div>
+      </div>
+    </div>
